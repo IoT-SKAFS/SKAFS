@@ -1,0 +1,48 @@
+[
+    {
+        "computation": "SHA-256",
+        "iterations": 1,
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.0004169940948486328,
+        "Average Execution time": 0.0004169940948486328
+    },
+    {
+        "computation": "HMAC-SHA256",
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.000885009765625,
+        "Average Execution time": 0.000885009765625
+    },
+    {
+        "computation": "Random generation",
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.0001609325408935547,
+        "Average Execution time": 0.0001609325408935547
+    },
+    {
+        "computation": "AES-128-CBC enc",
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.16391897201538086,
+        "Average Execution time": 0.16391897201538086
+    },
+    {
+        "computation": "FHD",
+        "Total Execution time": 0.011960029602050781,
+        "Average Hamming time": 0.011960029602050781
+    },
+    {
+        "computation": "ECCaddition",
+        "Total Execution time": 0.010448217391967773,
+        "Average ECC addition time": 0.010448217391967773
+    },
+    {
+        "computation": "ECC scalar Multiplication",
+        "Total Execution time": 0.003322124481201172,
+        "Average ECC scalar Multiplication time": 0.003322124481201172
+    },
+    {
+        "computation": "Bilinear Pairing",
+        "iterations": 1,
+        "Total Execution time": 0.37085485458374023,
+        "Average Bilinear pairing time": 0.37085485458374023
+    }
+]

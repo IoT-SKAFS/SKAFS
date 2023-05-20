@@ -1,0 +1,56 @@
+[
+    {
+        "computation": "SHA-256",
+        "iterations": 1000,
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.0015287399291992188,
+        "Average Execution time": 1.5287399291992187e-06,
+        "Average Execution time(msec)": 0.0015287399291992188
+    },
+    {
+        "computation": "HMAC-SHA256",
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.004655599594116211,
+        "Average Execution time": 4.655599594116211e-06,
+        "Average Execution time(msec)": 0.004655599594116211
+    },
+    {
+        "computation": "Random generation",
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.03551125526428223,
+        "Average Execution time": 3.5511255264282225e-05,
+        "Average Execution time(msec)": 0.03551125526428223
+    },
+    {
+        "computation": "AES-128-CBC enc",
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.03998374938964844,
+        "Average Execution time": 3.998374938964844e-05,
+        "Average Execution time(msec)": 0.03998374938964844
+    },
+    {
+        "computation": "FHD",
+        "Total Execution time": 0.09528565406799316,
+        "Average Hamming time": 9.528565406799316e-05,
+        "Average Hamming time(msec)": 0.09528565406799316
+    },
+    {
+        "computation": "ECCaddition",
+        "Total Execution time": 0.07431578636169434,
+        "Average ECC addition time": 7.431578636169433e-05,
+        "Average ECC addition time (msec)": 0.07431578636169434
+    },
+    {
+        "computation": "ECC scalar Multiplication",
+        "Total Execution time": 0.29913973808288574,
+        "Average ECC scalar Multiplication time": 0.00029913973808288574,
+        "Average ECC scalar Multiplication time(msec)": 0.29913973808288574
+    },
+    {
+        "computation": "Bilinear Pairing",
+        "iterations": 1000,
+        "Total Execution time": 12.748151063919067,
+        "Average Bilinear pairing time": 0.012748151063919067,
+        "Average Bilinear pairing time (msec)": 12.748151063919067
+    }
+]

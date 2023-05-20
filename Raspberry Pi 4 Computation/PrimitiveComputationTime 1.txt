@@ -1,0 +1,56 @@
+[
+    {
+        "computation": "SHA-256",
+        "iterations": 1,
+        "Data size in bytes": 1024,
+        "Total Execution time": 4.2438507080078125e-05,
+        "Average Execution time": 4.2438507080078125e-05,
+        "Average Execution time(msec)": 0.042438507080078125
+    },
+    {
+        "computation": "HMAC-SHA256",
+        "Data size in bytes": 1024,
+        "Total Execution time": 6.103515625e-05,
+        "Average Execution time": 6.103515625e-05,
+        "Average Execution time(msec)": 0.06103515625
+    },
+    {
+        "computation": "Random generation",
+        "Data size in bytes": 1024,
+        "Total Execution time": 4.935264587402344e-05,
+        "Average Execution time": 4.935264587402344e-05,
+        "Average Execution time(msec)": 0.04935264587402344
+    },
+    {
+        "computation": "AES-128-CBC enc",
+        "Data size in bytes": 1024,
+        "Total Execution time": 0.008106231689453125,
+        "Average Execution time": 0.008106231689453125,
+        "Average Execution time(msec)": 8.106231689453125
+    },
+    {
+        "computation": "FHD",
+        "Total Execution time": 0.0004420280456542969,
+        "Average Hamming time": 0.0004420280456542969,
+        "Average Hamming time(msec)": 0.4420280456542969
+    },
+    {
+        "computation": "ECCaddition",
+        "Total Execution time": 0.0002315044403076172,
+        "Average ECC addition time": 0.0002315044403076172,
+        "Average ECC addition time (msec)": 0.2315044403076172
+    },
+    {
+        "computation": "ECC scalar Multiplication",
+        "Total Execution time": 0.00035071372985839844,
+        "Average ECC scalar Multiplication time": 0.00035071372985839844,
+        "Average ECC scalar Multiplication time(msec)": 0.35071372985839844
+    },
+    {
+        "computation": "Bilinear Pairing",
+        "iterations": 1,
+        "Total Execution time": 0.031072616577148438,
+        "Average Bilinear pairing time": 0.031072616577148438,
+        "Average Bilinear pairing time (msec)": 31.072616577148438
+    }
+]
