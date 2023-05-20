@@ -54,11 +54,7 @@ Start the gateway on the Raspberry Pi 4. The gateway will listen on port 5000. T
 cd "Socket Programming"
 python SKAFS_Server_Gateway.py -c <ip of CA>
 ```
-<<<<<<< HEAD
-Run the script file to start the IoT device on the Raspberry Pi 1. The end-to-end-latency for 100 iterations will be stored in the log file "output.log" on the Raspberry Pi 1. Edit `python_args="-c 192.168.88.254"` in `run_iterations.sh` to reflect the IP address of the gateway. 
-=======
-Run the script file to start the IoT device on the Raspberry Pi 1. The end-to-end-latency for 100 iterations will be stored in the log file "output.json". Edit `python_args="-c 192.168.88.254"` in `run_iterations.sh` to reflect the IP address of the gateway. 
->>>>>>> a1fad68f0914d88aceba0dd0fd43c11fea95ad76
+Run the script file to start the IoT device on the Raspberry Pi 1. The end-to-end-latency for 100 iterations will be stored in the log file "output.log". Edit `python_args="-c 192.168.88.254"` in `run_iterations.sh` to reflect the IP address of the gateway. 
 ```
 cd "Socket Programming"
 sh run_iterations.sh
