@@ -1,11 +1,3 @@
-###   To Connect to the laptop server from the raspberry pi,run: 
-###
-###   python client.py -c 169.254.69.248
-###
-###   To Connect to the raspberry pi server from the laptop, run: 
-###
-###   python client.py -c 169.254.232.12
-
 import argparse
 import socket, pickle
 import os
@@ -46,42 +38,31 @@ def client_program():
         client_socket.connect((host, port))  # connect to the server
 
         message = ""
-        # while message.lower().strip() != 'bye':
         StartTime=time.time() 
         # Step 1: Send hello
         message = "hello"
-        client_socket.send(pickle.dumps(message))  # send message
-        # print('IoT device: step 1: sent to gateway: ' + str(message))
+        client_socket.send(pickle.dumps(message))  
         
         #Step 2: Receive the gateway authentication token # data contains: W, X_w_pub_key, Y_w_pub_key, sigmaZ
         data = client_socket.recv(2048)         
-        # print('IoT device: step 2: received from gateway: ')
-        # print(pickle.loads(data))  # show in terminal
         G_r_1 = pickle.loads(data)
-
-        #do the IoT computation 2 and send the authentication token to the gateway
-        # Message contains: P_1, P_2, P_3, sigma_t, T_1, T_2, s_1, s_2
         message, IoT_r_3, IoT_K_i = IoTobfuscationForR_2_ID(pickle.loads(data))
 
         
         #Step 3: Send the M_1,ID*,r_2*,K_i*,r_3* to the IoT gateway
         client_socket.send(pickle.dumps(message))
-        # print('IoT device: Step 3: sent to gateway: ' + str(message))
 
         #Step 4: Receive the G_M_2, Sync_IoT_G from the IoT gateway
-        data = client_socket.recv(2048)  
-        # print("IoT device: Step 4: received from the gateway: " + str(pickle.loads(data)))
+        data = client_socket.recv(2048)
         message, IoT_K_s, state, IoT_C_1=computeNextSessionKey(pickle.loads(data), G_r_1, IoT_r_3, IoT_K_i,IoT_C_1,state)
 
         
 
         #Step 5: Send IoT_K_i_next_obfuscated to the IoT gateway
         client_socket.send(pickle.dumps(message))
-        # print("IoT device: Step 5: send to the IoT gateway: ",message)
 
         #Step 6: Receive M_4 from the IoT gateway
         data = client_socket.recv(2048)
-        # print("IoT device: Step 6: received from the gateway: " + str(pickle.loads(data)))
         IoT_K_previous,IoT_C_1,state=updatingChallengeDPUFconfiguration(pickle.loads(data),IoT_K_s,G_r_1,IoT_r_3,IoT_K_previous,IoT_K_i,IoT_C_1,state) 
         
         EndTime=time.time() 

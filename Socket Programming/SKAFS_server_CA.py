@@ -1,11 +1,3 @@
-###   To Connect to the laptop server from the raspberry pi,run: 
-###
-###   python client.py -c 169.254.69.248
-###
-###   To Connect to the raspberry pi server from the laptop, run: 
-###
-###   python client.py -c 169.254.232.12
-
 import argparse
 import socket, pickle
 import os
@@ -60,8 +52,6 @@ def ca_server_program():
         message = ""
         #Step 1: Receive Gateway_Identity, G_nonce, G_sigma_1, G_sigma_2, Epison_1_1, Epison_1_2, Epison_1_3, Epison_1_4, Epison_1_5 from the gateway
         data = conn.recv(2048)         
-        print('CA: step 1: received from gateway: ')
-        print(pickle.loads(data))  # show in terminal
 
         #do the IoT computation 2 and send the authentication token to the gateway
         # Message contains: P_1, P_2, P_3, sigma_t, T_1, T_2, s_1, s_2
@@ -74,22 +64,15 @@ def ca_server_program():
 
         #Step 2: Send the sigma_3 epson2 D_CA_G to the IoT gateway
         conn.send(pickle.dumps(message))
-        # print('CA: Step 2: sent to gateway: ' + str(message))     
 
         #Step 3: Receive the Epison_3_1 from the IoT gateway
         data = conn.recv(2048) 
-        # print('CA: step 3: received from gateway: ')
-        # print(pickle.loads(data))  # show in terminal
         message=updatingSynchronizationKeys(pickle.loads(data), HashResult,iv,G_r_1_Decrypted,CA_K_previous,CA_K_current,CA_Sync_K_G_CA)
 
         #Step 4: Send M_3 to the IoT gateway
         conn.send(pickle.dumps(message))
-        # print('CA: Step 4: sent to gateway: ' + str(message))
-
-        #conn.close()  # close the connection
 
 def RetrieveR_2_ID(data):
-    # Gateway_Identity, G_nonce, G_sigma_1, G_sigma_2, Epison_1_1, Epison_1_2, Epison_1_3, Epison_1_4, Epison_1_5, iv
     Gateway_Identity= data[0]
     G_nonce= data[1]
     G_sigma_1= data[2]

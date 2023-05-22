@@ -40,10 +40,8 @@ def server_program():
     host = args.connect # CA server
 
     server_socket = socket.socket()  # get instance
-    # look closely. The bind() function takes tuple as argument
     server_socket.bind((bind_address, port))  # bind host address and port together
 
-    # configure how many client the server can listen simultaneously
     server_socket.listen(10)
 
 
@@ -59,21 +57,18 @@ def server_program():
         if not IoT_HelloMsg:
             # if data is not received break
             break
-        # print("Gateway :Step 1: received Hello Msg from the IoT device")
-
+    
         # Generate the r_1 after receiving the Hello message from the IoT device
         G_r_1 = int.from_bytes(os.urandom(1024),'big')%P256.q
         
         # Step 2: send the generated r_1 to the IoT device 
         conn.send(pickle.dumps(G_r_1))  
-        # print('Gateway: Step 2: sent to r_1 the IoT device:' + str(G_r_1))
-        
+            
         # Step 3: receive M_1, ID*, r_2*, K_i*, r_3* from the IoT device
         IoT_M1 = conn.recv(2048)
         if not IoT_M1:
             break
-        # print("Gateway: Step3: received from the IoT device: " + str(pickle.loads(IoT_M1)))
-
+    
         # Generate N_g, \sigma_1,\sigma_2, E1 after receiving M1
         G_nonce = int.from_bytes(os.urandom(1024),'big')%P256.q
         returnData=generateSigma1Sigma2Epison1(G_nonce,G_MK_G_CA,Gateway_Identity,G_Sync_K_G_CA, G_r_1, IoT_M1)        
@@ -83,13 +78,11 @@ def server_program():
         
         # Step 4: Send Gateway_Identity, G_nonce, G_sigma_1, G_sigma_2, Epison_1_1, Epison_1_2, Epison_1_3, Epison_1_4, Epison_1_5, iv to the CA
         ca_client_socket.send(pickle.dumps(message))
-        # print("Gateway: Step 4: sent Gateway_Identity, G_nonce, G_sigma_1, G_sigma_2, Epison_1_1, Epison_1_2, Epison_1_3, Epison_1_4, Epison_1_5, iv to the CA:" + str(message))
-
+    
         # Step 5: Receive CA_sigma_3, Epison_2_1, Epison_2_2, Epison_2_3, Epison_2_4, D_sync_CA_G from the CA
         message = ca_client_socket.recv(2048)
         if not message:
             break
-        # print("Gateway: Step 5: received from the CA: " + str(pickle.loads(message)))
         ReturnData=checkingSynchronizationBetGatewayIoT(pickle.loads(message), G_nonce, pickle.loads(IoT_M1), G_r_1, iv, HashResult)
         message=ReturnData[:2]
         G_K_a=ReturnData[2]
@@ -98,7 +91,6 @@ def server_program():
         G_r_3=ReturnData[5]
 
         # Step 6: Send G_M_2, Sync_IoT_G to the IoT device
-        # print("Gateway: Step 6: send to the IoT device: ", message)
         conn.send(pickle.dumps(message))
         
 
@@ -106,25 +98,21 @@ def server_program():
         message = conn.recv(2048)
         if not message:
             break
-        # print("Gateway: Step 7: received from the IoT device: " + str(pickle.loads(message)))
         returnData=gettingEncryptingNextSessionKey(pickle.loads(message), iv, HashResult, G_K_a)
         message=returnData[0]
         G_IoT_K_i_next=returnData[1]
 
         # Step 8: Send Epison_3_1 to the CA
         ca_client_socket.send(pickle.dumps(message))
-        # print("Gateway: Step 8: send to the IoT device: ", message)
-
+    
         # Step 9: Receive M_3 from the CA
         CA_M3 = ca_client_socket.recv(2048)
         if not CA_M3:
             break
-        # print("Gateway: Step 9: received from the CA: " + str(pickle.loads(CA_M3)))
         message=updatingSynchronizationKeys(pickle.loads(CA_M3), G_r_1, G_r_3, G_K_previous, G_K_current, G_IoT_K_i_next,G_Sync_K_G_CA)
 
         # Step 10: send M_4 to the IoT device
         conn.send(pickle.dumps(message))
-        # print("Gateway: Step 10: send to the IoT device: " + str(message))
         #conn.close()  # close the connection
         ca_client_socket.close()
 
